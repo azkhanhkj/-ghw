@@ -9,11 +9,10 @@ jobs:
     steps:
       - name: Tai va cai dat ngrok
         run: |
-          Invoke-WebRequest https://bin.equinox.io/c/b3M4124/ngrok-v3-stable-windows-amd64.zip -OutFile ngrok.zip
-          Expand-Archive ngrok.zip
+          choco install ngrok -y
       - name: Cau hinh ngrok token
         run: |
-          .\ngrok\ngrok.exe authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
+          ngrok authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
       - name: Bat RDP tren Windows Runner
         run: |
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0
@@ -24,7 +23,7 @@ jobs:
           net user RunnerAdmin Password123456!
       - name: Khoi tao duong truyen RDP
         run: |
-          Start-Process Powershell -ArgumentList '-NoExit', '-Command', '.\ngrok\ngrok.exe tcp 3389'
+          Start-Process Powershell -ArgumentList '-NoExit', '-Command', 'ngrok tcp 3389'
       - name: Lay thong tin ket noi RDP
         run: |
           Start-Sleep -Seconds 5
@@ -36,4 +35,4 @@ jobs:
             Start-Sleep -Seconds 60
             $i++
           }
-          
+        
