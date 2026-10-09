@@ -20,7 +20,7 @@ jobs:
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "UserAuthentication" -Value 0
       - name: Tao mat khau cho tai khoan RunnerAdmin
         run: |
-          net user RunnerAdmin Password123456!
+          net user RunnerAdmin Ent$56gh56434343434
       - name: Khoi tao duong truyen RDP
         run: |
           Start-Process Powershell -ArgumentList '-NoExit', '-Command', 'ngrok tcp 3389'
